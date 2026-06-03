@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UX Workshop - Mổ sản phẩm AI thật: V-APP</title>
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --primary: #1d4ed8;
+      --primary-light: #e8f0ff;
+      --danger: #b91c1c;
+      --danger-light: #fff1f2;
+      --success: #047857;
+      --success-light: #ecfdf5;
+      --warning: #b45309;
+      --warning-light: #fffbeb;
+      --border: #e5e7eb;
+      --shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px 56px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #eef4ff 100%);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      max-width: 820px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 26px;
+    }
+
+    .meta-card {
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .meta-card b {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .meta-card span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    section {
+      margin-top: 28px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .section-title .number {
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .problem {
+      border-left: 5px solid var(--danger);
+      background: var(--danger-light);
+    }
+
+    .solution {
+      border-left: 5px solid var(--success);
+      background: var(--success-light);
+    }
+
+    .note {
+      border-left: 5px solid var(--warning);
+      background: var(--warning-light);
+    }
+
+    ul {
+      margin: 10px 0 0;
+      padding-left: 20px;
+    }
+
+    li {
+      margin: 8px 0;
+    }
+
+    .journey {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .step {
+      position: relative;
+      min-height: 128px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: #fff;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--primary);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 14px;
+      font-size: 15px;
+    }
+
+    th,
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f3f6fb;
+      color: #374151;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .decision {
+      padding: 24px;
+      border-radius: 20px;
+      background: #111827;
+      color: #fff;
+    }
+
+    .decision h2 {
+      color: #fff;
+    }
+
+    .decision p,
+    .decision li {
+      color: #d1d5db;
+    }
+
+    .footer {
+      margin-top: 32px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .meta-grid,
+      .grid-2,
+      .journey {
+        grid-template-columns: 1fr;
+      }
+
+      .hero,
+      .card,
+      .decision {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">Workshop cá nhân · UX Workshop</p>
+      <h1>Mổ sản phẩm AI thật: app → flow → path yếu → sửa</h1>
+      <p>
+        Chủ đề phân tích: trải nghiệm sử dụng V-APP/V-AI khi người dùng cần hỏi thông tin,
+        tra cứu lại lịch sử hội thoại và kiểm chứng nguồn trả lời. Mục tiêu không phải liệt kê bug rời rạc,
+        mà tìm ra một path yếu nhất trong flow và đề xuất hướng sửa có giá trị sản phẩm.
+      </p>
+
+      <div class="meta-grid">
+        <div class="meta-card">
+          <b>App được chọn</b>
+          <span>V-APP / V-AI - trợ lý ảo voice/text trong ứng dụng.</span>
+        </div>
+        <div class="meta-card">
+          <b>Ngữ cảnh dùng thử</b>
+          <span>Người dùng hỏi thông tin về phản hồi tiêu cực liên quan đến bệnh viện.</span>
+        </div>
+        <div class="meta-card">
+          <b>Output</b>
+          <span>Sketch as-is/to-be và một quyết định sản phẩm rõ ràng.</span>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <div class="section-title">
+        <span class="number">1</span>
+        <h2>Vấn đề tổng quan</h2>
+      </div>
+      <div class="card problem">
+        <span class="tag">As-is problem</span>
+        <p>
+          Trong quá trình sử dụng, người dùng đã đặt câu hỏi và nhận được câu trả lời.
+          Tuy nhiên, sau khi thoát app rồi mở lại, lịch sử chat chưa cập nhật ngay;
+          khoảng 5 phút sau lịch sử mới hiển thị trở lại. Độ trễ này khiến người dùng tưởng rằng hội thoại đã bị mất,
+          làm giảm khả năng tiếp tục ngữ cảnh, kiểm chứng lại thông tin và theo dõi các câu hỏi đã hỏi trước đó.
+        </p>
+        <p>
+          Ngoài ra, khi người dùng hỏi: <b>"bình luận tiêu cực về bệnh viện Ung bướu Hà Nội"</b>,
+          hệ thống lại gắn link đầu tiên tới nội dung mang tính khác chủ đề như
+          <b>"quá trình phát triển ứng dụng AI trong bệnh viện ung bướu"</b>.
+          Câu trả lời có dấu hiệu chỉ khớp theo tiêu đề hoặc từ khóa liên quan, chưa thực sự hiểu đúng intent và nội dung nguồn.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <span class="number">2</span>
+        <h2>Flow hiện tại của người dùng</h2>
+      </div>
+      <div class="card">
+        <span class="tag">Current user journey</span>
+        <div class="journey">
+          <div class="step">
+            <strong>1. Mở app</strong>
+            <p>Người dùng vào V-APP và tìm điểm truy cập tới trợ lý AI.</p>
+          </div>
+          <div class="step">
+            <strong>2. Đặt câu hỏi</strong>
+            <p>Người dùng hỏi một query thật, có intent cụ thể và nhạy về ngữ cảnh.</p>
+          </div>
+          <div class="step">
+            <strong>3. Nhận câu trả lời</strong>
+            <p>AI trả lời và gắn link nguồn nhưng mức độ liên quan chưa chính xác.</p>
+          </div>
+          <div class="step">
+            <strong>4. Muốn xem lại</strong>
+            <p>Người dùng cần tra lại lịch sử chat để đối chiếu hoặc hỏi tiếp.</p>
+          </div>
+          <div class="step">
+            <strong>5. Bị đứt mạch</strong>
+            <p>Thoát app vào lại chưa thấy lịch sử ngay, phải chờ khoảng 5 phút mới hiển thị.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <span class="number">3</span>
+        <h2>Path yếu nhất cần sửa</h2>
+      </div>
+      <div class="grid-2">
+        <div class="card problem">
+          <span class="tag">Weak path 01</span>
+          <h3>Lịch sử hội thoại cập nhật chậm</h3>
+          <ul>
+            <li>Sau khi thoát app và mở lại, lịch sử chat chưa xuất hiện ngay.</li>
+            <li>Khoảng 5 phút sau lịch sử mới được đồng bộ và hiển thị lại.</li>
+            <li>Người dùng dễ hiểu nhầm rằng hội thoại đã bị mất hoặc chưa được lưu.</li>
+            <li>Làm giảm cảm giác trợ lý AI là một công cụ có trí nhớ, liên tục và đáng tin.</li>
+          </ul>
+        </div>
+
+        <div class="card problem">
+          <span class="tag">Weak path 02</span>
+          <h3>Gắn nguồn chưa đúng trọng tâm</h3>
+          <ul>
+            <li>Link được trả về có liên quan bề mặt theo từ khóa nhưng lệch intent.</li>
+            <li>Nguồn đầu tiên không phản ánh đúng yêu cầu về "bình luận tiêu cực".</li>
+            <li>Người dùng phải tự kiểm tra lại nguồn, làm tăng effort.</li>
+            <li>Gây cảm giác AI trả lời theo tiêu đề thay vì đọc và hiểu nội dung.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <span class="number">4</span>
+        <h2>So sánh As-is và To-be</h2>
+      </div>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Thành phần</th>
+              <th>As-is: hiện trạng</th>
+              <th>To-be: đề xuất sửa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>Lịch sử chat</b></td>
+              <td>Thoát app vào lại chưa cập nhật ngay; khoảng 5 phút sau lịch sử chat mới hiển thị.</td>
+              <td>Đồng bộ lịch sử gần như tức thời; nếu cần xử lý nền, hiển thị trạng thái <b>Đang cập nhật lịch sử</b>.</td>
+            </tr>
+            <tr>
+              <td><b>Tiếp tục ngữ cảnh</b></td>
+              <td>Người dùng phải chờ hoặc hỏi lại từ đầu vì tưởng phiên trò chuyện chưa được lưu.</td>
+              <td>Cho phép mở lại hội thoại cũ ngay sau khi vào app và tiếp tục hỏi dựa trên ngữ cảnh trước đó.</td>
+            </tr>
+            <tr>
+              <td><b>Độ tin cậy nguồn</b></td>
+              <td>Link nguồn có thể chỉ khớp tiêu đề hoặc keyword, nhưng nội dung không đúng trọng tâm.</td>
+              <td>Hiển thị đoạn trích liên quan dưới mỗi nguồn và giải thích vì sao nguồn đó được chọn.</td>
+            </tr>
+            <tr>
+              <td><b>Khi AI không chắc</b></td>
+              <td>AI vẫn trả lời như thể nguồn đã chính xác.</td>
+              <td>Thêm trạng thái <b>low-confidence</b>: yêu cầu người dùng xác nhận intent hoặc đưa thêm nguồn phù hợp hơn.</td>
+            </tr>
+            <tr>
+              <td><b>Phản hồi sai lệch</b></td>
+              <td>Người dùng không có cách đơn giản để báo link sai hoặc câu trả lời lệch trọng tâm.</td>
+              <td>Thêm nút <b>Báo nguồn không phù hợp</b> và <b>Câu trả lời chưa đúng trọng tâm</b>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <span class="number">5</span>
+        <h2>Đề xuất thay đổi UX cụ thể</h2>
+      </div>
+      <div class="grid-2">
+        <div class="card solution">
+          <span class="tag">To-be flow</span>
+          <h3>Flow tra cứu lịch sử</h3>
+          <ul>
+            <li>Đặt tab <b>Trò chuyện</b> và <b>Lịch sử</b> ngay trong giao diện V-AI.</li>
+            <li>Lịch sử cần hiển thị lại ngay sau khi người dùng thoát app và mở lại.</li>
+            <li>Nếu hệ thống đang đồng bộ, cần có thông báo rõ: <b>Đang cập nhật lịch sử chat</b>.</li>
+            <li>Mỗi lịch sử hiển thị: câu hỏi đầu tiên, thời gian, chủ đề, trạng thái đã có nguồn.</li>
+            <li>Cho phép tìm kiếm lại lịch sử theo từ khóa.</li>
+          </ul>
+        </div>
+
+        <div class="card solution">
+          <span class="tag">To-be source</span>
+          <h3>Flow kiểm chứng nguồn</h3>
+          <ul>
+            <li>Mỗi link cần có đoạn evidence ngắn, không chỉ hiển thị tiêu đề.</li>
+            <li>Nguồn phải được xếp hạng theo mức độ khớp với intent, không chỉ khớp từ khóa.</li>
+            <li>Nếu câu hỏi yêu cầu "bình luận tiêu cực", nguồn phải chứa nội dung đánh giá, phản hồi, khiếu nại hoặc sentiment liên quan.</li>
+            <li>Khi không tìm thấy nguồn đủ chắc chắn, AI nên nói rõ: <b>"Chưa tìm thấy nguồn phù hợp"</b>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <span class="number">6</span>
+        <h2>Product decision</h2>
+      </div>
+      <div class="decision">
+        <h2>Quyết định sản phẩm đề xuất</h2>
+        <p>
+          Ưu tiên sửa <b>path lịch sử chat và kiểm chứng nguồn</b> trước khi mở rộng thêm tính năng mới.
+          Đây là điểm ảnh hưởng trực tiếp đến niềm tin của người dùng đối với trợ lý AI.
+        </p>
+        <ul>
+          <li><b>Must-have:</b> Đồng bộ và hiển thị lịch sử chat gần như tức thời sau khi người dùng mở lại app.</li>
+          <li><b>Must-have:</b> Đặt lối vào lịch sử ở vị trí dễ thấy trong giao diện V-AI.</li>
+          <li><b>Must-have:</b> Mỗi câu trả lời có nguồn cần hiển thị đoạn trích chứng minh liên quan.</li>
+          <li><b>Should-have:</b> Thêm nút phản hồi nhanh khi nguồn sai hoặc câu trả lời lệch trọng tâm.</li>
+          <li><b>Could-have:</b> Tự động phân nhóm lịch sử theo chủ đề để người dùng dễ tra cứu lại.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <span class="number">7</span>
+        <h2>Tiêu chí đánh giá sau khi sửa</h2>
+      </div>
+      <div class="card note">
+        <span class="tag">Success metrics</span>
+        <ul>
+          <li><b>History sync:</b> Sau khi thoát app và mở lại, lịch sử chat hiển thị trong dưới 10 giây hoặc có trạng thái đang đồng bộ rõ ràng.</li>
+          <li><b>Continuity:</b> Người dùng có thể mở lại hội thoại cũ và hỏi tiếp mà không cần nhập lại toàn bộ ngữ cảnh.</li>
+          <li><b>Source relevance:</b> Link nguồn đầu tiên phải đúng intent chính của câu hỏi.</li>
+          <li><b>User trust:</b> Người dùng hiểu vì sao AI chọn nguồn và có thể báo lỗi khi nguồn không phù hợp.</li>
+        </ul>
+      </div>
+    </section>
+
+    <p class="footer">
+      UX Workshop · V-APP/V-AI · As-is → To-be → Product decision
+    </p>
+  </main>
+</body>
+</html>

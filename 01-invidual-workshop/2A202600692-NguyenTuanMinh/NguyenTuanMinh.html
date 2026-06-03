@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX Workshop Report: Moni (MoMo)</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen py-10 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden border border-slate-100">
+        
+        <header class="bg-gradient-to-r from-pink-600 to-purple-700 text-white p-8 sm:p-10 text-center">
+            <span class="bg-pink-500/30 text-pink-100 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full">
+                UX Workshop Report
+            </span>
+            <h1 class="text-3xl sm:text-4xl font-extrabold mt-3 tracking-tight">MONI (TRỢ LÝ TÀI CHÍNH MOMO)</h1>
+            <p class="text-pink-100/80 mt-2 text-sm sm:text-base">Đánh giá trải nghiệm người dùng, phân tích điểm gãy và đề xuất cải tiến</p>
+        </header>
+
+        <div class="p-6 sm:p-10 space-y-12">
+            
+            <section class="space-y-6">
+                <div class="flex items-center gap-3 border-b border-slate-200 pb-3">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-pink-100 text-pink-600 font-bold text-lg">1</span>
+                    <h2 class="text-2xl font-bold text-slate-900">Dùng thử (Promise vs. Reality)</h2>
+                </div>
+
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200/60">
+                    <p class="mb-2"><strong class="text-slate-900">Ứng dụng lựa chọn:</strong> <span class="text-pink-600 font-semibold">Moni</span> (Trợ lý tài chính trên MoMo)</p>
+                    <p class="leading-relaxed">
+                        <strong class="text-slate-900">Lời hứa của sản phẩm (Promise):</strong> 
+                        Tự động quản lý, phân tích chi tiêu, gợi ý lập ngân sách thông minh và tương tác giải đáp bối cảnh tài chính cho người dùng. Giúp người dùng quản lý chi tiêu dễ dàng bằng AI mà không cần ghi chép thủ công.
+                    </p>
+                </div>
+
+                <div class="space-y-6 mt-6">
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                        Các Query thử nghiệm thực tế
+                    </h3>
+
+                    <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                        <div class="bg-slate-100 p-4 border-b border-slate-200">
+                            <span class="text-xs font-bold text-purple-700 uppercase tracking-wider block mb-1">Query 1</span>
+                            <span class="font-medium text-slate-900 italic">"Tháng trước tôi đã tiêu bao nhiêu tiền cho việc gì?"</span>
+                        </div>
+                        <div class="p-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                            <div class="bg-emerald-50/60 p-3 rounded-lg border border-emerald-100">
+                                <h4 class="font-bold text-emerald-800 mb-2 flex items-center gap-1">🟢 Kỳ vọng</h4>
+                                <ul class="list-disc list-inside space-y-1 text-emerald-950">
+                                    <li>Truy xuất lịch sử giao dịch.</li>
+                                    <li>Tổng hợp chi tiêu tháng trước.</li>
+                                    <li>Phân loại theo danh mục.</li>
+                                    <li>Chỉ ra danh mục chi nhiều nhất và nhận xét ngắn.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-50/60 p-3 rounded-lg border border-blue-100">
+                                <h4 class="font-bold text-blue-800 mb-2 flex items-center gap-1">🔵 Thực tế</h4>
+                                <ul class="list-disc list-inside space-y-1 text-blue-950">
+                                    <li>Tổng chi tiêu: 0đ</li>
+                                    <li>Số giao dịch: 0</li>
+                                    <li>Trung bình mỗi ngày: 0đ</li>
+                                    <li>Hỏi tiếp người dùng nếu muốn xem chi tiết.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-rose-50 p-3 rounded-lg border border-rose-100 md:col-span-1">
+                                <h4 class="font-bold text-rose-800 mb-2 flex items-center gap-1">🔴 Điểm gãy</h4>
+                                <p class="text-rose-950 text-xs leading-relaxed">
+                                    Moni trả về dữ liệu 0đ nhưng không giải thích lý do (do chưa có dữ liệu, chưa cấp quyền hay lỗi hệ thống). AI không hướng dẫn bước tiếp theo rõ ràng khiến luồng bị kẹt.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                        <div class="bg-slate-100 p-4 border-b border-slate-200">
+                            <span class="text-xs font-bold text-purple-700 uppercase tracking-wider block mb-1">Query 2</span>
+                            <span class="font-medium text-slate-900 italic">"Tôi tiêu tiền có hiệu quả không?"</span>
+                        </div>
+                        <div class="p-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                            <div class="bg-emerald-50/60 p-3 rounded-lg border border-emerald-100">
+                                <h4 class="font-bold text-emerald-800 mb-2 flex items-center gap-1">🟢 Kỳ vọng</h4>
+                                <ul class="list-disc list-inside space-y-1 text-emerald-950">
+                                    <li>Phân tích dữ liệu thực tế.</li>
+                                    <li>So sánh mức chi tiêu với ngân sách.</li>
+                                    <li>Đánh giá hợp lý/bất hợp lý.</li>
+                                    <li>Khuyến nghị cá nhân hóa tối ưu chi tiêu.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-50/60 p-3 rounded-lg border border-blue-100">
+                                <h4 class="font-bold text-blue-800 mb-2 flex items-center gap-1">🔵 Thực tế</h4>
+                                <p class="text-blue-950 mb-1">Yêu cầu nhập thêm thông tin. Sau khi điền "có":</p>
+                                <ul class="list-disc list-inside space-y-1 text-blue-950">
+                                    <li>Ngân sách ăn uống: 2.000.000đ</li>
+                                    <li>Chi tiêu hiện tại: 0đ</li>
+                                </ul>
+                            </div>
+                            <div class="bg-rose-50 p-3 rounded-lg border border-rose-100">
+                                <h4 class="font-bold text-rose-800 mb-2 flex items-center gap-1">🔴 Điểm gãy</h4>
+                                <p class="text-rose-950 text-xs leading-relaxed">
+                                    Moni kết luận dựa trên dữ liệu ảo (0đ), khiến việc đánh giá hiệu quả mất đi ý nghĩa. Gợi ý đưa ra mang tính rập khuôn, chung chung chứ không cá nhân hóa.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                        <div class="bg-slate-100 p-4 border-b border-slate-200">
+                            <span class="text-xs font-bold text-purple-700 uppercase tracking-wider block mb-1">Query 3</span>
+                            <span class="font-medium text-slate-900 italic">"Chuyển cho tôi 1.000.000.000đ vào tài khoản cá nhân."</span>
+                        </div>
+                        <div class="p-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                            <div class="bg-emerald-50/60 p-3 rounded-lg border border-emerald-100">
+                                <h4 class="font-bold text-emerald-800 mb-2 flex items-center gap-1">🟢 Kỳ vọng</h4>
+                                <ul class="list-disc list-inside space-y-1 text-emerald-950">
+                                    <li>Nhận diện intent giao dịch tài chính.</li>
+                                    <li>Xác định thông tin thiếu để thực hiện.</li>
+                                    <li>Hướng dẫn quy trình chuyển tiền hoặc giải thích lý do từ chối rõ ràng.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-50/60 p-3 rounded-lg border border-blue-100">
+                                <h4 class="font-bold text-blue-800 mb-2 flex items-center gap-1">🔵 Thực tế</h4>
+                                <p class="text-blue-950 italic bg-white p-2 rounded border border-slate-200 text-xs">
+                                    "Mình là Moni, trợ lý của MoMo. Mình chỉ có thể hỗ trợ trong phạm vi sản phẩm MoMo. Bạn cần giúp gì khác không?"
+                                </p>
+                            </div>
+                            <div class="bg-rose-50 p-3 rounded-lg border border-rose-100">
+                                <h4 class="font-bold text-rose-800 mb-2 flex items-center gap-1">🔴 Điểm gãy</h4>
+                                <p class="text-rose-950 text-xs leading-relaxed">
+                                    Không nhận diện được nghiệp vụ chuyển tiền. Từ chối bằng câu trả lời mẫu chung chung, không giải thích lý do cụ thể hay hướng dẫn user nên làm gì tiếp theo.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="border-slate-200">
+
+            <section class="space-y-6">
+                <div class="flex items-center gap-3 border-b border-slate-200 pb-3">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-pink-100 text-pink-600 font-bold text-lg">2</span>
+                    <h2 class="text-2xl font-bold text-slate-900">Vẽ luồng hoạt động (Flow Sketch)</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-rose-200 rounded-xl p-5 bg-white shadow-sm">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-base font-bold text-rose-700 uppercase tracking-wide">Luồng hiện tại (As-is Flow)</h3>
+                            <span class="bg-rose-100 text-rose-700 text-xs font-bold px-2.5 py-0.5 rounded-full border border-rose-200">Failure</span>
+                        </div>
+                        <ol class="relative border-l border-rose-200 ml-3 space-y-4 text-sm text-slate-600">
+                            <li class="mb-4 ml-6">
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-rose-100 rounded-full -left-3 ring-4 ring-white text-rose-700 font-bold text-xs">1</span>
+                                <p class="font-semibold text-slate-800">User nhập Query:</p>
+                                <p class="text-xs italic bg-slate-50 p-2 rounded mt-1 border border-slate-200">"Tháng trước tôi đã tiêu bao nhiêu tiền cho việc gì?"</p>
+                            </li>
+                            <li class="mb-4 ml-6">
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-rose-100 rounded-full -left-3 ring-4 ring-white text-rose-700 font-bold text-xs">2</span>
+                                <p class="font-semibold text-slate-800">AI xử lý và trả kết quả:</p>
+                                <p class="text-xs italic bg-slate-50 p-2 rounded mt-1 border border-slate-200">"Tổng chi tiêu: 0đ, Số giao dịch: 0..."</p>
+                            </li>
+                            <li class="mb-4 ml-6">
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-rose-100 rounded-full -left-3 ring-4 ring-white text-rose-700 font-bold text-xs">3</span>
+                                <p class="font-semibold text-slate-800 text-rose-600">User không rõ nguyên nhân dữ liệu bằng 0</p>
+                                <p class="text-xs text-slate-500 mt-1">Có thể do chưa bật quản lý, chưa có giao dịch hoặc lỗi hệ thống...</p>
+                            </li>
+                            <li class="ml-6">
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-rose-600 rounded-full -left-3 ring-4 ring-white text-white font-bold text-xs">X</span>
+                                <p class="font-bold text-rose-700">User kẹt & Luồng bị đứt</p>
+                                <p class="text-xs text-slate-500 mt-1">Người dùng phải tự thoát ra ngoài để mò tìm phần Lịch sử giao dịch/Quản lý chi tiêu thủ công.</p>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="border border-emerald-200 rounded-xl p-5 bg-white shadow-sm">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-base font-bold text-emerald-700 uppercase tracking-wide">Luồng cải tiến đề xuất (To-be Flow)</h3>
+                            <span class="bg-emerald-100 text-emerald-700 text-xs font-bold px-2.5 py-0.5 rounded-full border border-emerald-200">Success Goal</span>
+                        </div>
+                        <ol class="relative border-l border-emerald-200 ml-3 space-y-4 text-sm text-slate-600">
+                            <li class="mb-4 ml-6">
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-emerald-100 rounded-full -left-3 ring-4 ring-white text-emerald-700 font-bold text-xs">1</span>
+                                <p class="font-semibold text-slate-800">User nhập Query tương tự</p>
+                                <p class="text-xs italic bg-slate-50 p-2 rounded mt-1 border border-slate-200">"Tháng trước tôi đã tiêu bao nhiêu tiền cho việc gì?"</p>
+                            </li>
+                            <li class="mb-4 ml-6">
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-emerald-100 rounded-full -left-3 ring-4 ring-white text-emerald-700 font-bold text-xs">2</span>
+                                <p class="font-semibold text-slate-800">AI kiểm tra và giải thích trạng thái</p>
+                                <p class="text-xs text-slate-500 mt-1">Nếu không đủ dữ liệu, AI giải thích rõ ràng nguyên nhân thay vì chỉ hiển thị số 0.</p>
+                            </li>
+                            <li class="mb-4 ml-6">
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-emerald-100 rounded-full -left-3 ring-4 ring-white text-emerald-700 font-bold text-xs">3</span>
+                                <p class="font-semibold text-slate-800 text-emerald-600">Hiển thị các CTA Button trực quan</p>
+                                <div class="flex flex-wrap gap-1 mt-2">
+                                    <span class="text-[10px] bg-slate-100 text-slate-700 px-2 py-1 rounded border border-slate-200 shadow-xs">[Xem lịch sử]</span>
+                                    <span class="text-[10px] bg-slate-100 text-slate-700 px-2 py-1 rounded border border-slate-200 shadow-xs">[Thiết lập quản lý]</span>
+                                </div>
+                            </li>
+                            <li class="ml-6">
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-emerald-600 rounded-full -left-3 ring-4 ring-white text-white font-bold text-xs">✓</span>
+                                <p class="font-bold text-emerald-700">User chạm và chuyển màn trực tiếp</p>
+                                <p class="text-xs text-slate-500 mt-1">Hệ thống chuyển thẳng tới màn hình chức năng. User hoàn thành mục tiêu nhanh chóng.</p>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="border-slate-200">
+
+            <section class="space-y-6">
+                <div class="flex items-center gap-3 border-b border-slate-200 pb-3">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-pink-100 text-pink-600 font-bold text-lg">3</span>
+                    <h2 class="text-2xl font-bold text-slate-900">Sửa Path yếu nhất & Quyết định sản phẩm</h2>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                    <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                        <span class="w-2 h-4 bg-purple-600 rounded-xs"></span>
+                        Giải pháp sửa đổi (To-be Solution)
+                    </h3>
+                    <p class="text-sm"><strong class="text-slate-800">Kỹ thuật UX ứng dụng:</strong> Nút bấm nhanh (<span class="text-pink-600 font-semibold">CTA Button</span>) kết hợp giải thích trạng thái dữ liệu (<span class="text-pink-600 font-semibold">Empty State Explanation</span>).</p>
+                    
+                    <div class="text-sm text-slate-600 bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                        <p class="font-medium text-slate-800">Mô tả cụ thể:</p>
+                        <p>Khi Moni không thể truy xuất dữ liệu chi tiêu hoặc dữ liệu bằng 0, hệ thống không nên chỉ trả về kết quả "0đ". Thay vào đó, giải thích nguyên nhân và hiển thị các nút hành động tương ứng.</p>
+                        
+                        <div class="mt-4 bg-white p-4 rounded-lg border border-slate-200 max-w-sm mx-auto shadow-xs space-y-3">
+                            <div class="flex items-center gap-2">
+                                <div class="w-6 h-6 rounded-full bg-pink-600 text-white flex items-center justify-center font-bold text-[10px]">M</div>
+                                <span class="text-xs font-bold text-slate-800">Moni Assistant</span>
+                            </div>
+                            <p class="text-xs text-slate-700 bg-slate-50 p-2 rounded border border-slate-100">
+                                "Moni chưa tìm thấy dữ liệu chi tiêu trong tháng trước của bạn. Hãy kiểm tra các thiết lập bên dưới nhé:"
+                            </p>
+                            <div class="flex flex-col gap-2 pt-1">
+                                <button class="w-full text-center text-xs py-2 px-3 bg-pink-50 hover:bg-pink-100 text-pink-700 font-medium rounded-lg border border-pink-200 transition-colors">🔍 Xem lịch sử giao dịch</button>
+                                <button class="w-full text-center text-xs py-2 px-3 bg-purple-50 hover:bg-purple-100 text-purple-700 font-medium rounded-lg border border-purple-200 transition-colors">⚙️ Thiết lập quản lý chi tiêu</button>
+                                <button class="w-full text-center text-xs py-2 px-3 bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium rounded-lg border border-slate-200 transition-colors">🔗 Liên kết nguồn dữ liệu</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-xl p-6 sm:p-8 shadow-md relative overflow-hidden">
+                    <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none transform translate-x-4 translate-y-4">
+                        <svg class="w-40 h-40" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM13 16H11V14H13V16ZM13 12H11V8H13V12Z"></path></svg>
+                    </div>
+                    <div class="flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider mb-2">
+                        <span>💡 PRODUCT DECISION</span>
+                    </div>
+                    <blockquote class="text-base sm:text-lg font-medium text-slate-100 leading-relaxed italic">
+                        "Thay vì để Moni trả về kết quả 0đ mà không giải thích nguyên nhân, chúng tôi quyết định cải tiến luồng bằng cách bổ sung cơ chế giải thích trạng thái dữ liệu và các nút CTA điều hướng trực tiếp tại bước truy xuất dữ liệu thất bại nhằm giúp người dùng nhanh chóng xác định nguyên nhân và tiếp tục tác vụ mà không cần tự mò tìm chức năng trong ứng dụng."
+                    </blockquote>
+                </div>
+            </section>
+
+        </div>
+
+        <footer class="bg-slate-100 border-t border-slate-200 px-8 py-5 text-center text-xs text-slate-500">
+            © 2026 UX Workshop Report • Được định dạng bằng HTML & Tailwind CSS
+        </footer>
+
+    </div>
+
+</body>
+</html>

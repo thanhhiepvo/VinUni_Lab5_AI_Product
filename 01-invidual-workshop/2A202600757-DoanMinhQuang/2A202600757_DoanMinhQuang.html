@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2A202600757 – V-AI </title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      --bg: #f8f9fa; --card: #fff; --text: #212529; --muted: #6c757d;
+      --border: #dee2e6; --accent: #0d6efd; --critical: #c92a2a; --warn: #e67700;
+      --step-bg: #e7f5ff;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; font-size: 15px; line-height: 1.6; color: var(--text); background: var(--bg); }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    header { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem 2rem; margin-bottom: 1.5rem; }
+    header h1 { margin: 0 0 0.5rem; font-size: 1.35rem; }
+    .badge-40 { display: inline-block; background: var(--step-bg); color: #1864ab; padding: 0.35rem 0.85rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem; }
+    .steps-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin: 1rem 0; }
+    .steps-nav a {
+      display: block; background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+      padding: 0.85rem; text-decoration: none; color: var(--text); font-size: 0.88rem;
+    }
+    .steps-nav a strong { display: block; color: var(--accent); margin-bottom: 0.25rem; }
+    .steps-nav a:hover { border-color: var(--accent); }
+    section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem 1.75rem; margin-bottom: 1.25rem; }
+    section > h2 { margin: 0 0 1rem; padding-bottom: 0.45rem; border-bottom: 2px solid var(--accent); font-size: 1.2rem; }
+    .step-num { color: var(--accent); font-weight: 700; }
+    h3 { font-size: 1rem; margin: 1.25rem 0 0.6rem; }
+    h4 { font-size: 0.95rem; margin: 1rem 0 0.4rem; color: var(--muted); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 0.75rem 0; }
+    th, td { border: 1px solid var(--border); padding: 0.45rem 0.6rem; text-align: left; vertical-align: top; }
+    th { background: #e9ecef; }
+    .tag-critical { color: var(--critical); font-weight: 600; }
+    .tag-high { color: var(--warn); font-weight: 600; }
+    pre, .flow-text { background: #f1f3f5; border-radius: 8px; padding: 0.85rem; font-size: 0.85rem; overflow-x: auto; }
+    blockquote.decision { margin: 1rem 0; padding: 0.85rem 1rem; border-left: 4px solid var(--accent); background: var(--step-bg); font-weight: 500; }
+    .mermaid { margin: 1rem 0; }
+    .screenshot-block { margin: 1rem 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .screenshot-block .slot-label { padding: 0.5rem 0.85rem; font-size: 0.8rem; background: #e9ecef; color: var(--muted); }
+    .screenshot-block img { display: block; width: 100%; max-width: 400px; margin: 0 auto; }
+    .screenshot-block figcaption { padding: 0.65rem 0.85rem; font-size: 0.88rem; border-top: 1px solid var(--border); }
+    .query-card { border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.25rem; margin: 1.25rem 0; background: #fafbfc; }
+    .query-card h4 { margin-top: 0; color: var(--text); }
+    .path-box { border-left: 4px solid var(--border); padding: 0.75rem 1rem; margin: 0.75rem 0; background: #f8f9fa; }
+    .path-box.happy { border-color: #2b8a3e; }
+    .path-box.low { border-color: #e67700; }
+    .path-box.fail { border-color: #c92a2a; }
+    .path-box.correct { border-color: #74c0fc; }
+    footer { text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 2rem; }
+    .pending { color: var(--muted); font-style: italic; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>V-App (V-AI) – Phân tích cải thiện </h1>
+      <p><strong>MSSV:</strong> 2A202600757 &nbsp;|&nbsp; <strong>Họ tên:</strong> Đoàn Minh Quang</p>
+      <p style="color:var(--muted); font-size:0.9rem;">Ràng buộc thực tế: V-AI <strong>không</strong> thực hiện giao dịch tài chính — chỉ hướng dẫn / điều hướng.</p>
+      <nav class="steps-nav">
+        <a href="#buoc-1"><strong>1 · Dùng thử</strong>Promise, 3 query, điểm gãy</a>
+        <a href="#buoc-2"><strong>2 · Vẽ flow</strong>As-is: 4 path + user kẹt</a>
+        <a href="#buoc-3"><strong>3 · Sửa path yếu</strong>To-be + 6 pattern</a>
+      </nav>
+    </header>
+
+    <!-- ========== BƯỚC 1: DÙNG THỬ ========== -->
+    <section id="buoc-1">
+      <h2><span class="step-num">1 ·</span> Dùng thử</h2>
+      <p>Đọc promise → thử <strong>3 query thật</strong> → chụp <strong>điểm gãy</strong> (kỳ vọng vs thực tế).</p>
+
+      <h3>Promise (lời hứa / kỳ vọng)</h3>
+      <table>
+        <thead><tr><th>Nguồn</th><th>Promise</th></tr></thead>
+        <tbody>
+          <tr><td>Marketing / onboarding</td><td><em>"Làm việc bằng chat — nhanh như nhắn tin"</em></td></tr>
+          <tr><td>Mental model user</td><td>Nói một câu → AI hiểu → chuyển / nạp / thanh toán (hoặc gần xong)</td></tr>
+          <tr><td>Thực tế đã test</td><td>AI <strong>không execute</strong> GD; chỉ guidance, hỏi thêm, hoặc hướng dẫn sang app khác</td></tr>
+        </tbody>
+      </table>
+
+      <h3>3 query đã test</h3>
+
+      <div class="query-card" id="query-1">
+        <h4>Query 1 — Chuyển 5 củ cho lan , ko phải lan office</h4>
+        <table>
+          <thead><tr><th></th><th>Nội dung</th></tr></thead>
+          <tbody>
+            <tr><th>Kỳ vọng</th><td>Loại trừ Lan office → gợi ý Lan đúng → handoff pre-fill 5.000.000đ → xác nhận trên V-App</td></tr>
+            <tr><th>Thực tế</th><td>Q&amp;A thu STK trong chat → câu cuối <strong>&quot;đã ghi nhận&quot;</strong> 5.000.000đ → BIDV ****04 — user <strong>tự hoàn tất</strong> trên app NH/ví ngoài; không CTA V-App</td></tr>
+            <tr><th>Điểm gãy</th><td class="tag-critical">Negative constraint bị bỏ · &quot;đã ghi nhận&quot; dễ hiểu nhầm · handoff ra app ngoài</td></tr>
+          </tbody>
+        </table>
+
+        <h4 style="margin-top:1rem; font-size:0.95rem;">Diễn biến đầy đủ (kể cả câu trả lời cuối)</h4>
+        <table>
+          <thead><tr><th>Lượt</th><th>Nội dung</th></tr></thead>
+          <tbody>
+            <tr><td>User</td><td><em>Chuyển 5 củ cho lan , ko phải lan office</em></td></tr>
+            <tr><td>V-AI</td><td>Cần ngân hàng + STK của Lan để chuyển <strong>5.000.000 VNĐ</strong> (copy: &quot;giúp bạn chuyển&quot;).</td></tr>
+            <tr><td>User</td><td><em>0848270004 BIDV</em></td></tr>
+            <tr><td>V-AI</td><td>Hỏi số …04 là <strong>STK hay SĐT</strong> của Lan.</td></tr>
+            <tr><td>User</td><td><em>Số ngân hàng</em> / <em>Đó là số tk</em></td></tr>
+            <tr>
+              <td>V-AI <strong>(cuối)</strong></td>
+              <td>
+                Cảm ơn <strong>Đoàn Minh Quang</strong> đã xác nhận. V-AI <strong>đã ghi nhận</strong> chuyển
+                <strong>5.000.000 VNĐ</strong> tới STK <strong>****04</strong> tại <strong>BIDV</strong> của <strong>Lan</strong>.
+                Nhờ kiểm tra trên <strong>ứng dụng ngân hàng hoặc ví điện tử</strong> để <strong>hoàn tất giao dịch</strong> an toàn.
+                <br /><span class="tag-high">→ Không execute; không mở Chuyển tiền V-App; user tự làm ngoài chat.</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <figure class="screenshot-block">
+          <div class="slot-label">Ảnh 1 — Query 1 (đầu luồng)</div>
+          <img src="../../../screenshots/query-01-chuyen-5-cu-lan.png" alt="Query 1 phần đầu" />
+          <figcaption>Hỏi STK/NH; user gửi 0848270004 BIDV; AI hỏi STK hay SĐT.</figcaption>
+        </figure>
+        <figure class="screenshot-block">
+          <div class="slot-label">Ảnh 2 — Query 1 (câu trả lời cuối)</div>
+          <img src="../../../screenshots/query-01-ket-thuc-da-ghi-nhan.png" alt="Query 1 câu trả lời cuối" />
+          <figcaption>
+            User xác nhận STK → AI &quot;đã ghi nhận&quot; 5.000.000đ → BIDV ****04 — hướng dẫn hoàn tất trên app NH/ví.
+            Đặt file: <code>screenshots/query-01-ket-thuc-da-ghi-nhan.png</code>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="query-card" id="query-2">
+        <h4>Query 2 — Chuyển 50k cho Quang</h4>
+        <table>
+          <thead><tr><th></th><th>Nội dung</th></tr></thead>
+          <tbody>
+            <tr><th>Kỳ vọng</th><td>Parse 50k + Quang → [Tiếp tục Chuyển tiền] form đã điền trong V-App</td></tr>
+            <tr><th>Thực tế</th><td>Ghi nhận 50.000 VNĐ; hỏi STK; <strong>3 bước thủ công</strong> trên app NH/ví <em>ngoài</em> V-App</td></tr>
+            <tr><th>Điểm gãy</th><td class="tag-high">Parse OK nhưng không dùng context · không in-app handoff</td></tr>
+          </tbody>
+        </table>
+        <figure class="screenshot-block">
+          <div class="slot-label">Screenshot Query 2</div>
+          <img src="../../../screenshots/query-02-chuyen-50k-quang.png" alt="Query 2" />
+          <figcaption>Wall of text + hướng dẫn đăng nhập app NH/ví → Chuyển tiền → nhập lại.</figcaption>
+        </figure>
+      </div>
+
+      <div class="query-card" id="query-3">
+        <h4>Query 3 — Chuyển 50k cho Quang lúc 5h chiều và nhắc tôi nếu ch chuyển</h4>
+        <table>
+          <thead><tr><th></th><th>Nội dung</th></tr></thead>
+          <tbody>
+            <tr><th>Kỳ vọng</th><td>Đặt lịch 17:00 + nhắc nếu chưa chuyển + handoff pre-fill</td></tr>
+            <tr><th>Thực tế</th><td>Hứa "thực hiện GD" → thu STK → <strong>"đã ghi nhận"</strong> → user tự chuyển 17:00 trên app ngoài; <strong>bỏ reminder</strong></td></tr>
+            <tr><th>Điểm gãy</th><td class="tag-critical">Reminder ignore · "đã ghi nhận" hiểu nhầm · expectation flip</td></tr>
+          </tbody>
+        </table>
+        <figure class="screenshot-block">
+          <div class="slot-label">Screenshot Query 3</div>
+          <img src="../../../screenshots/query-03-chuyen-50k-quang-5h-nhac.png" alt="Query 3" />
+          <figcaption class="pending">Đặt file: screenshots/query-03-chuyen-50k-quang-5h-nhac.png</figcaption>
+        </figure>
+      </div>
+
+      <h3>Tổng hợp điểm gãy (3 query)</h3>
+      <table>
+        <thead><tr><th>Điểm gãy</th><th>Query</th><th>Kỳ vọng vs thực tế</th></tr></thead>
+        <tbody>
+          <tr><td>Không execute nhưng copy hứa "giúp chuyển / thực hiện GD"</td><td>1, 2, 3</td><td>User nghĩ AI sẽ làm trong chat</td></tr>
+          <tr><td>Không handoff V-App + pre-fill</td><td>1, 2, 3</td><td>Phải nhập lại hoặc sang app khác</td></tr>
+          <tr><td>Text-only, không button / gợi ý contact</td><td>1, 2, 3</td><td>Friction cao, dễ sai STK</td></tr>
+          <tr><td>"Đã ghi nhận" / mơ hồ trạng thái</td><td>1 (cuối), 3</td><td>Tin đã xử lý / phải tự hoàn tất app ngoài</td></tr>
+          <tr><td>Intent phụ bị bỏ (negation, reminder, lịch)</td><td>1, 3</td><td>Task user không được đáp ứng</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ========== BƯỚC 2: VẼ FLOW ========== -->
+    <section id="buoc-2">
+      <h2><span class="step-num">2 ·</span> Vẽ flow (As-is)</h2>
+      <p>4 path: <strong>Happy</strong> · <strong>Low-confidence</strong> · <strong>Failure</strong> · <strong>Correction</strong> — đánh dấu <strong>user kẹt</strong>.</p>
+
+      <p><em>3 query chuyển tiền đều rơi vào path Guidance / Low-conf / Failure — không có Happy path cho GD tiền.</em></p>
+
+      <div class="mermaid">
+flowchart TB
+    U([User query GD tiền]) --> NLU{NLU}
+
+    NLU -->|FAQ / tra cứu| HP[HAPPY PATH<br/>Mở màn read-only]
+    HP --> OK1([Xong])
+
+    NLU -->|GD tiền| GP[GUIDANCE PATH<br/>Không execute]
+    NLU -->|Thiếu / mơ hồ slot| LC[LOW-CONFIDENCE<br/>Hỏi text generic]
+    NLU -->|Handoff yếu| FL[FAILURE<br/>Form trống / app ngoài]
+
+    GP --> S1{{"KẸT #1<br/>Copy hứa thực hiện"}}
+    LC --> S2{{"KẸT #2<br/>Không button / contact"}}
+    FL --> S3{{"KẸT #3<br/>Mất context"}}
+    GP --> FL
+
+    S1 --> CR[CORRECTION PATH]
+    S2 --> CR
+    S3 --> CR
+    CR --> M[User: menu → nhập lại → OTP]
+    M --> S4{{"KẸT #4<br/>+1–2 bước vs menu trực tiếp"}}
+
+    style S1 fill:#ffd43b,color:#000
+    style S2 fill:#ffd43b,color:#000
+    style S3 fill:#ff6b6b,color:#fff
+    style S4 fill:#ff6b6b,color:#fff
+      </div>
+
+      <h3>Chi tiết 4 path</h3>
+
+      <div class="path-box happy">
+        <strong>Happy path</strong> (không áp dụng 3 query chuyển tiền)<br />
+        Ví dụ: "Lịch sử GD tháng 5" → deep link + filter → xong. AI = router read-only.
+      </div>
+
+      <div class="path-box low">
+        <strong>Low-confidence path</strong> — <span class="tag-high">Query 1, 2, 3</span><br />
+        AI hiểu intent một phần nhưng hỏi chung chung (STK, NH) hoặc clarify text dài, không list contact / không chip.<br />
+        <strong>Kẹt:</strong> User không biết chọn gì tiếp trong chat (#2).
+      </div>
+
+      <div class="path-box fail">
+        <strong>Failure path</strong> — <span class="tag-high">Query 1, 2, 3</span><br />
+        Sau guidance: <strong>"đã ghi nhận"</strong> (Q1, Q3) hoặc 3 bước manual (Q2) — đẩy sang <strong>app NH/ví ngoài</strong>, không pre-fill V-App.<br />
+        Q1 cuối: đủ 5M + BIDV + STK vẫn không handoff (#3). Q3: reminder + 17:00 bị bỏ.
+      </div>
+
+      <div class="path-box correct">
+        <strong>Correction path</strong> — <span class="tag-high">Cả 3 query</span><br />
+        User thoát chat → vào Chuyển tiền thủ công → nhập lại amount / recipient / STK → OTP.<br />
+        <strong>Kẹt:</strong> Chat không giảm effort, đôi khi tăng (#4). AI không log correction để cải thiện.
+      </div>
+
+      <h3>Map query → path</h3>
+      <table>
+        <thead><tr><th>Query</th><th>Path chính</th><th>User kẹt ở đâu</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Low-conf → Failure → Correction</td><td>Sau &quot;đã ghi nhận&quot;; tự hoàn tất app NH ngoài; không resolve &quot;≠ office&quot;</td></tr>
+          <tr><td>2</td><td>Guidance → Failure → Correction</td><td>Sau 3 bước manual; nhập lại 50k + Quang</td></tr>
+          <tr><td>3</td><td>Low-conf → Failure → Correction</td><td>Sau "đã ghi nhận"; không reminder; tự nhớ 17:00</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Sequence As-is (đại diện — Query 2)</h3>
+      <div class="mermaid">
+sequenceDiagram
+    actor User
+    participant AI as V-AI
+  User->>AI: Chuyển 50k cho Quang
+  AI->>User: Ghi nhận 50k — hỏi STK — 3 bước app NH ngoài
+  Note over User,AI: KẸT: không CTA V-App
+  User->>User: Thoát chat — nhập lại — OTP
+      </div>
+    </section>
+
+    <!-- ========== BƯỚC 3: SỬA PATH YẾU ========== -->
+    <section id="buoc-3">
+      <h2><span class="step-num">3 ·</span> Sửa một path yếu nhất (To-be)</h2>
+
+      <h3>Path được chọn</h3>
+      <p><strong>Guidance + Low-confidence + Failure</strong> khi user có <code>transaction_intent</code> (chuyển / nạp / thanh toán).</p>
+      <ul>
+        <li>Cả 3 query đều rơi path này — ROI cao nhất khi sửa một lần.</li>
+        <li>V-AI <strong>vẫn không execute</strong> — cải UX bằng handoff, không thêm payment API.</li>
+      </ul>
+
+      <h3>To-be flow (từng bước)</h3>
+      <div class="mermaid">
+flowchart TB
+    A([1. User query]) --> B[2. Parse + retain slots]
+    B --> C{3. Transaction intent?}
+    C -->|Không| D[FAQ / read-only]
+    C -->|Có| E["4. Expectation set<br/>Chưa chuyển tiền trong chat"]
+    E --> F{5. Đủ slot / ambiguous?}
+    F -->|Thiếu / mơ hồ| G["6. Hỏi lại + SOURCE + BUTTON"]
+    G --> F
+    F -->|Đủ| H["7. Preview — CHƯA HOÀN TẤT"]
+    H --> I["8. HANDOFF deep link pre-fill"]
+    I --> J[9. User OTP trên V-App]
+    J --> K[10. Success chỉ từ core banking]
+    K --> L["11. UNDO window nếu policy cho phép"]
+    G --> M["CORRECTION LOG"]
+    H --> M
+      </div>
+
+      <h3>6 pattern (theo yêu cầu bài)</h3>
+      <table>
+        <thead><tr><th>Pattern</th><th>To-be</th><th>Ví dụ Query 1</th><th>Ví dụ Query 2–3</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Hỏi lại</strong></td>
+            <td>Chỉ hỏi slot thiếu</td>
+            <td>"Lan nào? (đã loại Lan office)"</td>
+            <td>"Quang nào?" / "STK hay SĐT?"</td>
+          </tr>
+          <tr>
+            <td><strong>Source</strong></td>
+            <td>Hiển thị nguồn gợi ý</td>
+            <td>"Từ danh bạ · GD 7 ngày"</td>
+            <td>Recent transfer tới Quang</td>
+          </tr>
+          <tr>
+            <td><strong>Button</strong></td>
+            <td>Tap thay vì gõ</td>
+            <td>[Lan cá nhân] [Lan khác]</td>
+            <td>[Quang · VCB] [Tiếp tục Chuyển tiền]</td>
+          </tr>
+          <tr>
+            <td><strong>Handoff</strong></td>
+            <td>Deep link pre-fill</td>
+            <td>transfer?amount=5M&amp;recipient=…</td>
+            <td>50k + Quang + BIDV → V-App</td>
+          </tr>
+          <tr>
+            <td><strong>Undo</strong></td>
+            <td>Sau OTP thành công trên bank</td>
+            <td>[Hoàn tác 30s] nếu có</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>Correction log</strong></td>
+            <td>Log clarify / sửa / drop</td>
+            <td>clarify_choice, handoff_tap</td>
+            <td>reminder_opt_in, schedule_set</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Sequence To-be — Query 2 (mẫu)</h3>
+      <div class="mermaid">
+sequenceDiagram
+    actor User
+    participant AI as V-AI
+    participant App as V-App Chuyển tiền
+  User->>AI: Chuyển 50k cho Quang
+  AI->>User: Chưa chuyển tiền. Chọn Quang:<br/>[Quang · ****5678] Nguồn: danh bạ
+  User->>AI: Chọn + Tiếp tục
+  AI->>App: open prefilled 50000
+  App-->>User: Xác nhận + OTP
+  Note over AI: Không nói đã chuyển trước OTP
+      </div>
+
+      <h3>Copy — không fake success</h3>
+      <table>
+        <thead><tr><th>Cho phép</th><th>Không cho phép</th></tr></thead>
+        <tbody>
+          <tr><td>"Chưa chuyển tiền — [Tiếp tục trên app]"</td><td>"Đã chuyển / đã ghi nhận giao dịch"</td></tr>
+          <tr><td>"Đã chọn người nhận"</td><td>"V-AI đã giúp bạn chuyển xong"</td></tr>
+          <tr><td>Success khi có txn_id từ bank</td><td>Suy đoán từ chat state</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Query 3 — bổ sung To-be</h3>
+      <ul>
+        <li><strong>Reminder:</strong> [Bật nhắc 17:05 nếu chưa chuyển] hoặc nói rõ "chưa hỗ trợ" — không im lặng.</li>
+        <li><strong>Lịch:</strong> handoff màn Đặt lịch với <code>scheduled_at=17:00</code> nếu product có.</li>
+      </ul>
+
+      <h3>So sánh effort</h3>
+      <table>
+        <thead><tr><th></th><th>As-is (3 query)</th><th>To-be</th></tr></thead>
+        <tbody>
+          <tr><td>Bước trước OTP</td><td>5–7 (chat + manual)</td><td>3–4 (clarify + 1 CTA)</td></tr>
+          <tr><td>Nhập lại context</td><td>Có</td><td>Không (pre-fill)</td></tr>
+          <tr><td>Trust copy</td><td>Mơ hồ / "đã ghi nhận"</td><td><code>not_completed</code> rõ</td></tr>
+        </tbody>
+      </table>
+
+      <blockquote class="decision" id="product-decision">
+        <strong>Product decision:</strong> Ưu tiên seamless handoff với context retention thay vì cố gắng thực thi ngoài khả năng của AI.
+      </blockquote>
+      <p><strong>P0:</strong> Copy trung thực + chặn false success / "đã ghi nhận" gây hiểu nhầm.<br />
+      <strong>P1–P3:</strong> Hỏi lại + source + button → handoff pre-fill → correction log.</p>
+    </section>
+
+    <footer>
+      <p>2A202600757 — Đoàn Minh Quang</p>
+    </footer>
+  </div>
+  <script>mermaid.initialize({ startOnLoad: true, theme: "neutral", securityLevel: "loose" });</script>
+</body>
+</html>
