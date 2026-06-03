@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo Cáo Phân Tích - Moni (MoMo)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #D82D8B;
+            --primary-light: #FF5EAF;
+            --primary-dark: #A51A65;
+            --bg-color: #ffffff;
+            --card-bg: #ffffff;
+            --card-bg-light: #f8f9fa;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border: #e1e4e8;
+            --success: #28a745;
+            --success-bg: rgba(40, 167, 69, 0.1);
+            --danger: #dc3545;
+            --danger-bg: rgba(220, 53, 69, 0.1);
+            --warning: #ffc107;
+            --warning-bg: rgba(255, 193, 7, 0.1);
+        }
+        
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 50px 20px;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--primary-light), var(--primary), #FF8E53);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2.subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 50px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            margin-top: 0;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3::before {
+            content: '';
+            display: block;
+            width: 5px;
+            height: 25px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        h4 {
+            color: var(--primary-light);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            margin-top: 35px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--primary-light);
+        }
+
+        .summary-card {
+            background: linear-gradient(145deg, rgba(216, 45, 139, 0.05), rgba(0,0,0,0));
+            border-left: 4px solid var(--primary);
+        }
+
+        /* Table */
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            vertical-align: top;
+        }
+        
+        td:last-child, th:last-child {
+            border-right: none;
+        }
+
+        th {
+            background: rgba(216, 45, 139, 0.1);
+            color: var(--primary-light);
+            font-weight: 600;
+            text-align: left;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        td ul { margin: 10px 0 0 0; padding-left: 20px; }
+        td li { margin-bottom: 8px; }
+
+        /* Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            margin-top: 15px;
+        }
+        
+        .badge:first-child { margin-top: 0; }
+        .badge-success { background: var(--success-bg); color: var(--success); border: 1px solid rgba(63, 185, 80, 0.3); }
+        .badge-danger { background: var(--danger-bg); color: var(--danger); border: 1px solid rgba(248, 81, 73, 0.3); }
+        .badge-warning { background: var(--warning-bg); color: var(--warning); border: 1px solid rgba(210, 153, 34, 0.3); }
+
+        /* Images Grid */
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin: 30px 0;
+        }
+
+        .screenshot-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .screenshot-card img {
+            width: 100%;
+            border-radius: 8px;
+            display: block;
+            margin-bottom: 12px;
+            border: 1px solid #e1e4e8;
+        }
+
+        .screenshot-card span {
+            font-size: 0.9rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* Callouts / Alerts */
+        .callout {
+            padding: 20px 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            background: rgba(88, 166, 255, 0.1);
+            border-left: 4px solid #58a6ff;
+        }
+        
+        .callout p { margin: 0; color: var(--text-main); }
+        
+        .callout-conclusion {
+            background: rgba(216, 45, 139, 0.05);
+            border-left: 4px solid var(--primary);
+            margin-top: 30px;
+        }
+
+        .callout-conclusion strong { color: var(--primary-dark); }
+
+        /* Utilities */
+        p { margin-bottom: 15px; font-weight: 300; }
+        strong { color: var(--primary-dark); font-weight: 600; }
+        
+        .action-list { margin-top: 20px; padding-left: 25px; }
+        .action-list li {
+            margin-bottom: 15px;
+            padding-left: 5px;
+        }
+        .action-list li strong { color: var(--primary-light); }
+        
+        .flow-caption {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* BPMN Flowchart Styles */
+        .bpmn-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 100px;
+            padding: 90px 50px;
+            background: #f0fdf4; /* Light green/blue tint */
+            border-radius: 16px;
+            border: 1px solid #bbf7d0;
+            overflow-x: auto;
+            position: relative;
+            margin: 30px 0 60px 0;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.05);
+        }
+        
+        .bpmn-node {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #1e293b;
+            z-index: 2;
+            flex-shrink: 0;
+        }
+
+        .bpmn-node:not(.no-arrow)::after {
+            content: '';
+            position: absolute;
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100px;
+            height: 2px;
+            background: #64748b;
+            z-index: 1;
+        }
+        .bpmn-node:not(.no-arrow)::before {
+            content: '▶';
+            position: absolute;
+            right: -108px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 18px;
+            z-index: 2;
+        }
+
+        .bpmn-rect {
+            width: 180px;
+            min-height: 80px;
+            background: #fca5a5;
+            border: 2px solid #ef4444;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 6px 12px rgba(239, 68, 68, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bpmn-diamond-wrapper {
+            width: 140px;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .diamond-shape {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 100px; height: 100px;
+            background: #bbf7d0;
+            border: 2px solid #22c55e;
+            transform: translate(-50%, -50%) rotate(45deg);
+            border-radius: 8px;
+            z-index: -1;
+            box-shadow: 0 6px 12px rgba(34, 197, 94, 0.15);
+        }
+        
+        .diamond-text {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            z-index: 2;
+            width: 120px;
+        }
+
+        .bpmn-circle-yellow {
+            width: 70px;
+            height: 70px;
+            background: #fef08a;
+            border: 2px solid #eab308;
+            border-radius: 50%;
+            box-shadow: 0 6px 12px rgba(234, 179, 8, 0.15);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bpmn-circle-pink {
+            width: 70px;
+            height: 70px;
+            background: #fbcfe8;
+            border: 2px solid #ec4899;
+            border-radius: 50%;
+            box-shadow: 0 6px 12px rgba(236, 72, 153, 0.15);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Tags */
+        .bpmn-tag {
+            position: absolute;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #fff;
+            white-space: nowrap;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .bpmn-tag::after {
+            content: '';
+            position: absolute;
+            border: 7px solid transparent;
+        }
+        .tag-yellow { background: #f59e0b; top: -45px; left: -25px; }
+        .tag-yellow::after { border-top-color: #f59e0b; bottom: -13px; left: 18px; }
+
+        .tag-pink { background: #ec4899; bottom: -45px; left: 25px; }
+        .tag-pink::after { border-bottom-color: #ec4899; top: -13px; left: 15px; }
+
+        .tag-blue { background: #0ea5e9; top: -45px; right: -25px; }
+        .tag-blue::after { border-top-color: #0ea5e9; bottom: -13px; right: 18px; }
+
+        /* Branches */
+        .bpmn-branch-down {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 80px;
+            background: #64748b;
+        }
+        .bpmn-branch-down::after {
+            content: '▼';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #64748b;
+            font-size: 18px;
+        }
+        .bpmn-child-node {
+            position: absolute;
+            top: calc(100% + 80px);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BÁO CÁO PHÂN TÍCH TRẢI NGHIỆM SẢN PHẨM AI</h1>
+        <h2 class="subtitle">Đối Tượng: Trợ Lý Ảo Tài Chính Moni (MoMo)</h2>
+
+        <!-- Executive Summary -->
+        <div class="card summary-card">
+            <h3 style="border-bottom: none; margin-bottom: 10px; color: var(--primary-dark);">Tóm Tắt Thực Thi (Executive Summary)</h3>
+            <p>Báo cáo này tiến hành mổ xẻ trải nghiệm thực tế (empirical analysis) đối với tính năng Trợ lý ảo Moni trên siêu ứng dụng MoMo. Qua các kịch bản kiểm thử từ cơ bản đến phức tạp, báo cáo chỉ ra rằng Moni xử lý xuất sắc các tác vụ định lượng nhưng gặp <strong>điểm nghẽn nghiêm trọng (choke point)</strong> trong các truy vấn tư vấn định tính.</p>
+            <p>Từ những phát hiện đó, báo cáo đề xuất tích hợp mô hình <strong>"Clarification Loop" (Vòng lặp làm rõ)</strong> nhằm tái định vị Moni từ một cỗ máy tìm kiếm bị động thành một <strong>"Cố vấn Tài chính Chủ động" (Proactive Financial Coach)</strong> có khả năng chốt sale chéo (cross-sell) hiệu quả trong hệ sinh thái.</p>
+        </div>
+
+        <div class="card">
+            <h3>1. Test Scope & Empirical Analysis</h3>
+            <p>Để đánh giá toàn diện năng lực của Moni, quá trình kiểm thử được chia thành 3 Use Cases (Cấp độ phức tạp tăng dần): Truy vấn định lượng, Lập kế hoạch, và Tư vấn định tính.</p>
+            
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="5%" style="text-align: center;">STT</th>
+                            <th width="25%">Phân Loại & Kịch Bản</th>
+                            <th width="30%">Kết Quả Đầu Ra (Actual Outcome)</th>
+                            <th width="40%">Đánh Giá Chuyên Sâu (Deep-dive)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Row 1 -->
+                        <tr>
+                            <td style="text-align: center; font-weight: bold; font-size: 1.1rem; color: var(--primary-dark);">1</td>
+                            <td>
+                                <strong style="color: var(--primary-dark);">Use Case 1: Thống kê chi tiêu</strong><br><br>
+                                <div style="padding: 12px; background: rgba(0,0,0,0.03); border-radius: 8px; border-left: 3px solid #8b949e;">
+                                    <em>🗣️ "Tôi tiêu bao nhiêu tiền ăn uống trong tháng này?"</em>
+                                </div>
+                            </td>
+                            <td>
+                                <strong>Cách Moni phản hồi:</strong>
+                                <ul>
+                                    <li>Trích xuất đúng số tổng (130.000đ).</li>
+                                    <li>Phân rã dữ liệu: 2 giao dịch, tính trung bình 43.333đ/ngày.</li>
+                                    <li>Ngôn từ tự nhiên, dễ hiểu.</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <div class="badge badge-success">✅ Điểm sáng (Highlight)</div>
+                                <p style="margin-top: 5px; margin-bottom: 15px;">Khả năng phân tách ý định cực tốt, truy xuất chính xác dữ liệu gốc.</p>
+                                
+                                <div class="badge badge-danger">❌ Điểm mù (Blindspot)</div>
+                                <p style="margin-top: 5px;">Người dùng biết được mình tiêu bao nhiêu, nhưng chưa biết liệu mức chi tiêu đó là cao hay thấp. Không đưa ra insight tài chính thực sự hữu ích (thiếu so sánh lịch sử).</p>
+                            </td>
+                        </tr>
+                        <!-- Row 2 -->
+                        <tr>
+                            <td style="text-align: center; font-weight: bold; font-size: 1.1rem; color: var(--primary-dark);">2</td>
+                            <td>
+                                <strong style="color: var(--primary-dark);">Use Case 2: Lập kế hoạch mua sắm</strong><br><br>
+                                <div style="padding: 12px; background: rgba(0,0,0,0.03); border-radius: 8px; border-left: 3px solid #8b949e;">
+                                    <em>🗣️ "Tôi nên tiết kiệm bao nhiêu mỗi tháng nếu muốn mua iPad Pro 15 triệu trong 1 năm?"</em>
+                                </div>
+                            </td>
+                            <td>
+                                <strong>Cách Moni phản hồi:</strong>
+                                <ul>
+                                    <li>Thực hiện phép tính toán học chính xác (1.250.000đ/tháng).</li>
+                                    <li>Đề xuất dùng tính năng ngân sách.</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <div class="badge badge-success">✅ Điểm sáng (Highlight)</div>
+                                <p style="margin-top: 5px; margin-bottom: 15px;">Logic tính toán rõ ràng, kết nối tốt với hệ sinh thái tính năng.</p>
+                                
+                                <div class="badge badge-danger">❌ Điểm mù (Blindspot)</div>
+                                <p style="margin-top: 5px;">Moni mang tính "Calculator" nhiều hơn "Advisor". Moni chưa kiểm tra khả năng tài chính thực tế của người dùng (VD: Thu nhập hàng tháng bao nhiêu? Có khả thi không?).</p>
+                            </td>
+                        </tr>
+                        <!-- Row 3 -->
+                        <tr>
+                            <td style="text-align: center; font-weight: bold; font-size: 1.1rem; color: var(--primary-dark);">3</td>
+                            <td>
+                                <strong style="color: var(--primary-dark);">Use Case 3: Tư vấn đầu tư</strong><br><br>
+                                <div style="padding: 12px; background: rgba(0,0,0,0.03); border-radius: 8px; border-left: 3px solid #d29922;">
+                                    <em>🗣️ "Làm sao để tiền sinh lời nhanh nhất?"</em>
+                                </div>
+                            </td>
+                            <td>
+                                <strong>Cách Moni phản hồi:</strong>
+                                <ul>
+                                    <li>Liệt kê 5 phương án lý thuyết: Chứng khoán, Tiết kiệm, Quỹ, Kinh doanh, P2P.</li>
+                                    <li>Đính kèm cảnh báo rủi ro chung chung.</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <div class="badge badge-warning" style="font-size: 0.9rem;">⚠️ ĐIỂM GÃY (Choke Point)</div>
+                                <p style="margin-top: 5px; color: #d29922;">Câu trả lời rập khuôn, generic hệt như kết quả tìm kiếm Google. Việc nhồi nhét quá nhiều lý thuyết mà không tận dụng dữ liệu cá nhân khiến luồng tương tác bị đứt gãy hoàn toàn (người dùng không biết kênh nào thực sự phù hợp với mình).</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>2. Điểm Kẹt Chính (User Pain Point)</h3>
+            <p>Ở cả 3 test case, Moni chủ yếu trả lời theo dạng <em>"hỏi gì đáp nấy"</em>. Điểm thiếu lớn nhất là <strong>Không chuyển đổi dữ liệu tài chính của người dùng thành hành động cụ thể.</strong></p>
+            
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Người dùng hỏi</th>
+                            <th>Moni hiện tại trả lời</th>
+                            <th>Người dùng thực sự muốn biết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tôi tiêu bao nhiêu tiền ăn uống?</td>
+                            <td>Bạn đã tiêu 130.000 VNĐ.</td>
+                            <td><strong>Tôi có đang tiêu quá nhiều không?</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Mua iPad 15 triệu trong 1 năm?</td>
+                            <td>Bạn cần tiết kiệm 1,25 triệu/tháng.</td>
+                            <td><strong>Tôi có đạt được mục tiêu này không?</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Sinh lời nhanh nhất bằng cách nào?</td>
+                            <td>Danh sách 5 kênh đầu tư.</td>
+                            <td><strong>Kênh nào phù hợp nhất với tôi lúc này?</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>3. Mô hình hóa Luồng Tương tác (Flow As-Is)</h3>
+            <p>Dựa trên trải nghiệm thực tế, dưới đây là BPMN Flowchart biểu diễn các luồng xử lý của Moni.</p>
+            
+            <h4>3.1. Kiến trúc Tổng quan (High-Level Architecture)</h4>
+            <div class="bpmn-container">
+                <div class="bpmn-node bpmn-rect">
+                    <div class="bpmn-tag tag-yellow">User</div>
+                    Khởi tạo truy vấn
+                </div>
+                <div class="bpmn-node bpmn-diamond-wrapper">
+                    <div class="diamond-shape"></div>
+                    <div class="bpmn-tag tag-blue">Moni AI</div>
+                    <div class="diamond-text">Phân tích ý định<br>(Intent Parsing)</div>
+                </div>
+                <div class="bpmn-node bpmn-rect">
+                    <div class="bpmn-tag tag-pink">System</div>
+                    Truy xuất Database
+                </div>
+                <div class="bpmn-node bpmn-diamond-wrapper">
+                    <div class="diamond-shape"></div>
+                    <div class="bpmn-tag tag-blue">Moni AI</div>
+                    <div class="diamond-text">Sinh phản hồi<br>(NLG)</div>
+                </div>
+                <div class="bpmn-node bpmn-circle-yellow no-arrow">
+                    Hoàn tất
+                </div>
+            </div>
+
+            <h4>3.2. Luồng Thành công (Happy Path)</h4>
+            <p>Áp dụng cho Use Case 1 & 2. Ý định và thực thể (Entity) rõ ràng mang tính định lượng.</p>
+            <div class="bpmn-container">
+                <div class="bpmn-node bpmn-rect">
+                    <div class="bpmn-tag tag-yellow">User</div>
+                    Yêu cầu tính toán định lượng
+                </div>
+                <div class="bpmn-node bpmn-diamond-wrapper">
+                    <div class="diamond-shape"></div>
+                    <div class="bpmn-tag tag-blue">Moni AI</div>
+                    <div class="diamond-text">Trích xuất<br>đúng Entity</div>
+                </div>
+                <div class="bpmn-node bpmn-rect">
+                    <div class="bpmn-tag tag-pink">System</div>
+                    Xử lý số liệu chính xác
+                </div>
+                <div class="bpmn-node bpmn-circle-yellow no-arrow">
+                    Thành công
+                </div>
+            </div>
+
+            <h4>3.3. Luồng Thất bại (Failure Path)</h4>
+            <p>Áp dụng cho Use Case 3. Lỗi do thiếu ngữ cảnh (Contextual Deficit).</p>
+            <div class="bpmn-container">
+                <div class="bpmn-node bpmn-rect">
+                    <div class="bpmn-tag tag-yellow">User</div>
+                    Yêu cầu tư vấn chiến lược
+                </div>
+                <div class="bpmn-node bpmn-diamond-wrapper">
+                    <div class="diamond-shape"></div>
+                    <div class="bpmn-tag tag-blue">Moni AI</div>
+                    <div class="diamond-text">Thiếu ngữ cảnh<br>cá nhân</div>
+                    <div class="bpmn-branch-down"></div>
+                    <div class="bpmn-child-node bpmn-circle-pink">
+                        Drop-off
+                    </div>
+                </div>
+                <div class="bpmn-node bpmn-rect">
+                    <div class="bpmn-tag tag-pink">System</div>
+                    Truy xuất kiến thức đại trà
+                </div>
+                <div class="bpmn-node bpmn-circle-yellow no-arrow">
+                    User rời đi
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>4. Đề xuất Cải tiến (To-Be Flow)</h3>
+            <p>Thay vì chỉ trả lời thông tin, Moni nên đóng vai trò <strong>Financial Coach (Cố vấn Tài chính)</strong>. Áp dụng mô hình Clarification Loop để thu thập context.</p>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="20%">Use Case</th>
+                            <th width="40%">Moni Hiện Tại (Answer Engine)</th>
+                            <th width="40%">Đề xuất Cải tiến (Financial Coach)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. Chi tiêu ăn uống</strong></td>
+                            <td>Bạn đã chi 130.000 VNĐ cho ăn uống.</td>
+                            <td>Bạn đã chi 130.000 VNĐ cho ăn uống trong 3 ngày đầu tháng. Nếu giữ mức này, dự kiến cả tháng chi khoảng 1,3 triệu VNĐ. <strong>Mức này thấp hơn 25% so với tháng trước.</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Kế hoạch mua iPad</strong></td>
+                            <td>Cần tiết kiệm 1,25 triệu/tháng.</td>
+                            <td>Dựa trên lịch sử chi tiêu, bạn hiện đang dư trung bình 2 triệu/tháng. Khả năng đạt mục tiêu này là rất cao. <strong>Bạn có muốn tạo mục tiêu tiết kiệm ngay trên MoMo không?</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Tư vấn Đầu tư</strong></td>
+                            <td>Liệt kê 5 kênh đầu tư chung chung theo Wiki.</td>
+                            <td>Bạn hiện có số dư trung bình 10 triệu VNĐ. Nếu mục tiêu là an toàn, Túi Thần Tài là hợp lý nhất. Nếu bạn chịu rủi ro cao hơn trong 3 năm, Chứng chỉ quỹ sẽ phù hợp. <strong>Bạn muốn chọn hướng nào?</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4>Luồng Tối ưu hóa (Future State)</h4>
+            <div class="bpmn-container" style="background: #f0f9ff; border-color: #bae6fd;">
+                <div class="bpmn-node bpmn-rect" style="background: #bae6fd; border-color: #38bdf8;">
+                    <div class="bpmn-tag tag-yellow">User</div>
+                    Yêu cầu tư vấn sinh lời
+                </div>
+                <div class="bpmn-node bpmn-diamond-wrapper">
+                    <div class="diamond-shape" style="background: #bbf7d0; border-color: #22c55e;"></div>
+                    <div class="bpmn-tag tag-blue">Moni AI</div>
+                    <div class="diamond-text">Hỏi ngược<br>thu thập context</div>
+                </div>
+                <div class="bpmn-node bpmn-rect" style="background: #fbcfe8; border-color: #ec4899;">
+                    <div class="bpmn-tag tag-pink">System</div>
+                    Hiển thị UI Options (Rủi ro/Vốn)
+                </div>
+                <div class="bpmn-node bpmn-circle-yellow no-arrow">
+                    Chốt Sale (Túi Thần Tài)
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>5. Product Decision & Kết luận</h3>
+            
+            <p><strong>Decision:</strong> Ưu tiên phát triển khả năng <span style="background:#ede9fe; padding:3px 8px; border-radius:6px; color:var(--primary-dark); font-weight:bold;">Personalized Financial Recommendation</span> thay vì mở rộng thêm kiến thức tổng quát.</p>
+            
+            <p><strong>Lý do:</strong></p>
+            <ul class="action-list">
+                <li>Dữ liệu tài chính người dùng là lợi thế độc quyền lớn nhất của MoMo.</li>
+                <li>Tạo ra giá trị thực tế, cá nhân hóa cho từng User thay vì một con bot đọc wiki.</li>
+                <li>Mở ra cơ hội <strong>Cross-Selling (Bán chéo)</strong> cực mạnh các sản phẩm tài chính lõi (Túi Thần Tài, Mua Chứng Chỉ Quỹ).</li>
+            </ul>
+
+            <div class="callout callout-conclusion">
+                <p>💡 <strong>KẾT LUẬN:</strong><br>
+                Moni đã làm tốt vai trò cơ bản (tra cứu chi tiêu, tính toán mục tiêu). Tuy nhiên chatbot vẫn đang ở mức <strong>Answer Engine</strong> hơn là <strong>Financial Coach</strong>.<br><br>Cải tiến sống còn là phải tích hợp hệ thống Recommendation Engine và <strong>Call-to-Action</strong> trực tiếp để chuyển hóa Moni thành một <strong>Sale Funnel (Phễu bán hàng)</strong> khép kín trong hệ sinh thái.</p>
+            </div>
+        </div>
+
+        <!-- Screenshots Section -->
+        <div class="card">
+            <h3>Hình ảnh Thực tế (Empirical Evidence)</h3>
+            <div class="screenshots">
+                <div class="screenshot-card">
+                    <img src="1.jpg" alt="Query 1" onerror="this.src='https://placehold.co/400x800/f8f9fa/333?text=Image+1'">
+                    <span>Query 1: Thống kê định lượng</span>
+                </div>
+                <div class="screenshot-card">
+                    <img src="2.jpg" alt="Query 2" onerror="this.src='https://placehold.co/400x800/f8f9fa/333?text=Image+2'">
+                    <span>Query 2: Bài toán lập kế hoạch</span>
+                </div>
+                <div class="screenshot-card">
+                    <img src="3.jpg" alt="Query 3" onerror="this.src='https://placehold.co/400x800/f8f9fa/333?text=Image+3'">
+                    <span>Query 3: Tư vấn chiến lược (Lỗi mở)</span>
+                </div>
+                <div class="screenshot-card">
+                    <img src="4.jpg" alt="Query 4" onerror="this.src='https://placehold.co/400x800/f8f9fa/333?text=Image+4'">
+                    <span>Query 4: Thông tin mở rộng</span>
+                </div>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center; margin-top: 20px;">
+                <em>* Các hình ảnh thực tế được tải trực tiếp từ <code>1.jpg</code>, <code>2.jpg</code>, <code>3.jpg</code>, <code>4.jpg</code> trong cùng thư mục.</em>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
