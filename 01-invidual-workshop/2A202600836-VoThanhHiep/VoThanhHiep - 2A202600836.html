@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 5 – Mổ Sản Phẩm AI Thật: MoMo – Moni</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --momo-pink: #ae2070;
+            --momo-pink-light: #e83e8c;
+            --momo-pink-dark: #8c195a;
+            --bg-gradient-1: #ffc3a0;
+            --bg-gradient-2: #ffafbd;
+            --text-main: #212529;
+            --text-muted: #6c757d;
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --card-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            line-height: 1.7;
+            margin: 0;
+            padding: 3rem 1rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3.5rem;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--momo-pink-dark);
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(90deg, var(--momo-pink), #ff4d94);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 3px solid var(--momo-pink-light);
+            padding-bottom: 0.5rem;
+            margin-top: 3.5rem;
+            display: inline-block;
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            color: #343a40;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 80%;
+            background-color: var(--momo-pink);
+            border-radius: 4px;
+        }
+
+        .header-meta {
+            background: rgba(174, 32, 112, 0.08);
+            border-left: 5px solid var(--momo-pink);
+            padding: 1.5rem 2rem;
+            border-radius: 0 16px 16px 0;
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(174, 32, 112, 0.05);
+        }
+
+        .header-meta p {
+            margin: 0.5rem 0;
+        }
+
+        .header-meta strong {
+            color: var(--momo-pink-dark);
+        }
+
+        ul {
+            padding-left: 1.2rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+        
+        li::marker {
+            color: var(--momo-pink);
+        }
+
+        li:hover {
+            transform: translateX(6px);
+            color: var(--momo-pink-dark);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 2rem 0;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            white-space: nowrap;
+        }
+
+        th, td {
+            padding: 1.2rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid #f1f3f5;
+        }
+
+        th {
+            background: linear-gradient(90deg, var(--momo-pink), var(--momo-pink-dark));
+            color: white;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: rgba(174, 32, 112, 0.03);
+        }
+
+        .highlight-quote {
+            background: #fff8e6;
+            border-left: 5px solid var(--warning);
+            padding: 1.2rem 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin: 2rem 0;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 4px 12px rgba(255, 193, 7, 0.1);
+        }
+        
+        .highlight-quote p {
+            margin: 0;
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            font-family: 'Fira Code', monospace;
+            padding: 2.5rem 1.5rem 1.5rem;
+            border-radius: 16px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.3), 0 10px 30px rgba(0,0,0,0.15);
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        pre::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff5f56;
+            box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27c93f;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            background: rgba(174, 32, 112, 0.08);
+            color: var(--momo-pink-dark);
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            font-weight: 400;
+            display: block;
+        }
+
+        .decision-block {
+            background: linear-gradient(135deg, var(--momo-pink-dark) 0%, var(--momo-pink) 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin-top: 3.5rem;
+            box-shadow: 0 15px 40px rgba(174, 32, 112, 0.35);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .decision-block:hover {
+            transform: scale(1.02);
+        }
+
+        .decision-block::after {
+            content: '🎯';
+            position: absolute;
+            right: 20px;
+            bottom: -20px;
+            font-size: 10rem;
+            opacity: 0.1;
+            transform: rotate(-15deg);
+        }
+
+        .decision-block h2 {
+            color: white;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+            margin-top: 0;
+            border-radius: 0;
+        }
+
+        .decision-block p {
+            font-size: 1.1rem;
+            margin-bottom: 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0,0,0,0.08);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        /* Badges for status */
+        .emoji-icon {
+            font-size: 1.2rem;
+            margin-right: 0.4rem;
+        }
+        
+        .status-fail { color: #d97706; font-weight: 600; }
+        .status-partial { color: #0284c7; font-weight: 600; }
+        .status-friction { color: #dc2626; font-weight: 600; }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem;
+            }
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Lab 5 – Mổ Sản Phẩm AI Thật: MoMo – Moni</h1>
+
+    <div class="header-meta">
+        <p><strong>Block 3 · UX Workshop · Day 05</strong></p>
+        <p><strong>App được chọn:</strong> MoMo – <strong>Moni</strong>, trợ thủ tài chính AI: phân tích chi tiêu, gợi ý tiết kiệm, chatbot hỗ trợ trong app.</p>
+    </div>
+
+    <h2>1 · Dùng Thử (Try the App)</h2>
+
+    <h3>Promise của sản phẩm</h3>
+    <p>Moni được quảng bá là trợ lý tài chính cá nhân thông minh ngay trong app MoMo, có khả năng:</p>
+    <ul>
+        <li>Tóm tắt và phân tích chi tiêu theo tuần / tháng / danh mục.</li>
+        <li>Gợi ý kế hoạch tiết kiệm dựa trên lịch sử giao dịch.</li>
+        <li>Giải đáp thắc mắc về giao dịch, ví, dịch vụ trong app.</li>
+        <li>Phản hồi bằng tiếng Việt tự nhiên, hiểu ngữ cảnh tài chính cá nhân.</li>
+    </ul>
+
+    <h3>Các query thực tế đã thử</h3>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Query người dùng</th>
+                    <th>Kỳ vọng</th>
+                    <th>Thực tế</th>
+                    <th>Điểm gãy?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><em>"giao dịch gần nhất của tôi là gì"</em></td>
+                    <td>Moni tra cứu lịch sử, hiển thị giao dịch mới nhất ngay lập tức</td>
+                    <td>Moni chỉ tìm trong <strong>3 ngày gần nhất</strong> (01/06–03/06/2026), không tìm thấy gì, trả lời "chưa có giao dịch"</td>
+                    <td class="status-fail">⚠️ Fail (wrong scope)</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><em>(follow-up) "thì sao ko tìm về khoảng thời gian trước"</em></td>
+                    <td>Moni tự mở rộng phạm vi tìm kiếm hợp lý</td>
+                    <td>Moni mở rộng sang tháng 5/2026 — vẫn không thấy, trả lời "chưa có giao dịch" lần 2</td>
+                    <td class="status-partial">⚠️ Partial – chưa đủ</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><em>(follow-up) "đi xa hơn đến khi tìm được"</em></td>
+                    <td>Không cần phải prompt thêm</td>
+                    <td>Moni cuối cùng "đi ngược về tháng 4/2026" và tìm thấy 5 giao dịch — <strong>sau 2 lần user phải thúc</strong></td>
+                    <td class="status-friction">❌ Friction-heavy</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="highlight-quote" style="flex-direction: column; align-items: flex-start;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span class="emoji-icon">📸</span>
+            <p><strong>Bằng chứng thực tế:</strong> Ghi lại toàn bộ chuỗi hội thoại trên (12:02, 03/06/2026).</p>
+        </div>
+        <img src="momo_evidence.jpg" alt="Bằng chứng thực tế chat với Moni" style="max-width: 100%; height: auto; border-radius: 12px; margin-top: 1rem; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+    </div>
+
+    <h3>Nhận xét tổng quan</h3>
+    <ul>
+        <li><strong>Moni CÓ thể truy cập transaction history</strong> của user — đây là điểm tốt so với nhiều chatbot khác.</li>
+        <li><strong>Nhưng default search window quá hẹp</strong> (chỉ 3 ngày): với user không giao dịch gần đây, câu trả lời đầu tiên sẽ luôn là "không tìm thấy" — gây hiểu nhầm.</li>
+        <li><strong>Moni không chủ động mở rộng phạm vi:</strong> thay vì tự "đi xa hơn" khi không thấy kết quả, Moni chờ user yêu cầu — đặt gánh nặng lên người dùng.</li>
+    </ul>
+
+    <h2>2 · Vẽ Flow (As-Is Flow Map)</h2>
+    <p>Sơ đồ dưới đây mô tả luồng tương tác <strong>thực tế được ghi lại</strong> khi user hỏi Moni về giao dịch gần nhất.</p>
+
+<pre><code>[User mở chat Moni]
+        │
+        ▼
+[User nhập: "giao dịch gần nhất của tôi là gì"]
+        │
+        ▼
+┌────────────────────────────────────────────────────────────┐
+│  Moni query Transaction DB                                 │
+│  → Default window: 3 ngày gần nhất (01/06 – 03/06/2026)    │
+│  → Kết quả: KHÔNG TÌM THẤY giao dịch nào                   │
+└────────────────────────────────────────────────────────────┘
+        │
+        ▼
+[Moni: "Bạn chưa có giao dịch nào trong khoảng này"]
+[Moni gợi ý: "Nếu vừa thực hiện, hãy chờ vài phút hoặc nhắn Moni"]
+        │              ← ⚠️ USER KẸT Ở ĐÂY (lần 1)
+        │                 Moni không tự mở rộng — chờ user hỏi tiếp
+        ▼
+[User thúc: "thì sao ko tìm về khoảng thời gian trước"]
+        │
+        ▼
+┌────────────────────────────────────────────────────────────┐
+│  Moni mở rộng → tháng 5/2026 (01/05 – 31/05)               │
+│  → Kết quả: VẪN KHÔNG TÌM THẤY giao dịch nào               │
+└────────────────────────────────────────────────────────────┘
+        │
+        ▼
+[Moni: "Tháng 5 cũng chưa có giao dịch nào"]
+[Moni gợi ý: "Cho mình biết khoảng thời gian cụ thể nhé!"]
+        │              ← ⚠️ USER KẸT Ở ĐÂY (lần 2)
+        │                 Vẫn chờ user thúc — không tự tiếp tục
+        ▼
+[User thúc lần 3: "đi xa hơn đến khi tìm được"]
+        │
+        ▼
+┌────────────────────────────────────────────────────────────┐
+│  Moni tiếp tục lùi → tháng 4/2026                          │
+│  → Kết quả: TÌM THẤY 5 giao dịch ✓                         │
+└────────────────────────────────────────────────────────────┘
+        │
+        ▼
+[Moni hiển thị 5 giao dịch gần nhất trong tháng 4]
+["Muốn xem chi tiết không? Nhắn 'tiếp tục' để xem thêm"]
+        │
+        ▼
+[😊 Happy — nhưng chỉ sau 3 lần user phải thúc]
+</code></pre>
+
+    <h3>Phân loại các trạng thái trong flow</h3>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Trạng thái</th>
+                    <th>Mô tả</th>
+                    <th>Vị trí trong flow</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>😊 <strong>Happy</strong></td>
+                    <td>Moni có thể truy cập transaction DB — khả năng tốt</td>
+                    <td>Tiềm năng ở mọi bước</td>
+                </tr>
+                <tr>
+                    <td>😐 <strong>Low-confidence</strong></td>
+                    <td>Default window 3 ngày quá hẹp → "không tìm thấy" dù data có</td>
+                    <td>Lần hỏi 1</td>
+                </tr>
+                <tr>
+                    <td>😐 <strong>Low-confidence</strong></td>
+                    <td>Mở rộng sang tháng 5 nhưng vẫn thụ động, chờ user thúc</td>
+                    <td>Lần hỏi 2</td>
+                </tr>
+                <tr>
+                    <td>😤 <strong>Failure (friction)</strong></td>
+                    <td>User phải prompt 3 lần để được câu trả lời đáng lẽ là đầu tiên</td>
+                    <td>Lần hỏi 3</td>
+                </tr>
+                <tr>
+                    <td>🔁 <strong>Correction</strong></td>
+                    <td>Cuối cùng resolve được — nhưng sau quá nhiều friction</td>
+                    <td>Sau lần 3</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="highlight-quote">
+        <span class="emoji-icon">💡</span>
+        <p><strong>Điểm user kẹt nhiều nhất:</strong> Moni có data nhưng <strong>không chủ động mở rộng search window</strong> khi kết quả trống — user phải tự phát hiện ra giải pháp và hướng dẫn lại bot.</p>
+    </div>
+
+    <h2>3 · Sửa Một Path Yếu Nhất (To-Be Proposal)</h2>
+
+    <h3>Path yếu nhất được chọn</h3>
+    <div class="highlight-quote" style="background: #e8f4f8; border-color: #3498db; box-shadow: 0 4px 12px rgba(52, 152, 219, 0.1);">
+        <p><strong>"User hỏi giao dịch gần nhất → Moni trả lời 'không tìm thấy' do default window quá hẹp → user phải thúc 2–3 lần mới có câu trả lời"</strong></p>
+    </div>
+    
+    <p>Đây là path gây friction cao nhất vì Moni <strong>có đủ data</strong> nhưng không chủ động dùng — khiến user phải làm công việc của bot. Nguy hiểm đặc biệt với user mới: họ dễ hiểu nhầm là "chưa có giao dịch nào" và mất trust vào Moni.</p>
+
+    <h3>Sơ đồ To-Be (Proposed Fix)</h3>
+<pre><code>[User nhập: "giao dịch gần nhất của tôi là gì"]
+        │
+        ▼
+┌──────────────────────────────────────────────────────────┐
+│  Moni query Transaction DB với adaptive window           │
+│  Step 1: Tìm trong 7 ngày gần nhất                       │
+│  Step 2: Nếu trống → tự mở rộng 30 ngày (silent)         │  ← NEW
+│  Step 3: Nếu vẫn trống → mở rộng 90 ngày (silent)        │  ← NEW
+│  Step 4: Tìm thấy → dừng, trả lời                        │
+└──────────────────────────────────────────────────────────┘
+        │
+        ├── [Tìm thấy giao dịch] ──────────────────────────────────────┐
+        │                                                               ▼
+        │                              [Moni trả lời có context rõ ràng:]
+        │                              "Giao dịch gần nhất của bạn (tháng 4):
+        │                               • 28/4 – Chuyển tiền 200k
+        │                               • 25/4 – Thanh toán điện 350k
+        │                               (Mình tìm từ tháng 4 vì gần đây
+        │                                chưa có giao dịch mới nhé!)"
+        │                                    ← NEW: Transparent về scope
+        │                              [Xem thêm] [Lọc theo loại]
+        │
+        └── [Không thấy sau 90 ngày] ──────────────────────────────────┐
+                                                                         ▼
+                                        [Moni xác nhận rõ ràng:]
+                                        "Mình đã tìm 3 tháng gần nhất
+                                         nhưng chưa thấy GD nào.
+                                         Bạn muốn tìm xa hơn không?"
+                                        [Tìm xa hơn] [Nhập tên GD]
+                                              ← NEW: User-controlled fallback
+</code></pre>
+
+    <h3>Các thay đổi cụ thể đề xuất</h3>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Thành phần</th>
+                    <th>As-Is</th>
+                    <th>To-Be</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Default search window</strong></td>
+                    <td>3 ngày (cứng)</td>
+                    <td>Adaptive: tự mở rộng 7 → 30 → 90 ngày cho đến khi có kết quả</td>
+                </tr>
+                <tr>
+                    <td><strong>Khi không tìm thấy</strong></td>
+                    <td>Báo user ngay, chờ user hỏi tiếp</td>
+                    <td>Tự expand window silently trước khi trả lời</td>
+                </tr>
+                <tr>
+                    <td><strong>Transparency</strong></td>
+                    <td>Không nói đang tìm trong khoảng nào</td>
+                    <td>Luôn ghi rõ: "Mình tìm từ [ngày] đến [ngày]"</td>
+                </tr>
+                <tr>
+                    <td><strong>Fallback message</strong></td>
+                    <td>"Nhắn Moni để hỗ trợ kỹ hơn" (mơ hồ)</td>
+                    <td>"Đã tìm X ngày, chưa thấy — bạn muốn tìm xa hơn không?" + button</td>
+                </tr>
+                <tr>
+                    <td><strong>Friction count</strong></td>
+                    <td>3 lần user phải thúc</td>
+                    <td>0 lần — Moni tự xử lý</td>
+                </tr>
+                <tr>
+                    <td><strong>Correction log</strong></td>
+                    <td>Không có</td>
+                    <td>Log các query bị "không tìm thấy" → tune default window</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="decision-block">
+        <h2>4 · Product Decision</h2>
+        <p><strong>"Moni nên dùng adaptive search window: tự mở rộng phạm vi tìm kiếm cho đến khi có kết quả — và luôn nói rõ đang tìm trong khoảng thời gian nào để user không hiểu nhầm là 'chưa từng giao dịch'."</strong></p>
+        <p style="margin-top: 1rem; opacity: 0.9; font-size: 1rem;">Thay đổi này không cần thêm permission hay data mới — Moni đã có đủ quyền truy cập transaction history. Chỉ cần thay đổi <strong>search strategy</strong>: từ "tìm hẹp → báo trống → chờ user" sang "tìm cho đến khi có kết quả → báo kết quả kèm context". Đây là ranh giới giữa <strong>reactive chatbot</strong> và <strong>proactive financial assistant</strong>.</p>
+    </div>
+
+    <div class="footer">
+        Báo cáo hoàn thành trong khuôn khổ Workshop Block 3 · Day 05 · Lab 5 Personal
+    </div>
+</div>
+
+</body>
+</html>
